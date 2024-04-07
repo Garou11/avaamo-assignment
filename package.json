@@ -1,0 +1,12 @@
+{
+    "name": "file-upload-app",
+    "version": "1.0.0",
+    "scripts": {
+        "start:client": "cd client && npm start",
+        "start:server": "node server/index.js",
+        "start": "concurrently \"npm run start:client\" \"npm run start:server\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
