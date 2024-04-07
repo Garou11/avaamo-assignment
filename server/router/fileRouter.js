@@ -6,7 +6,7 @@ const multer = require("multer");
 const { fetchSynonyms, countWordsOccurrences, countWordsUniqueOccurrences } = require('../utils/textUtils');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/') // Specify the destination folder
+    cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
