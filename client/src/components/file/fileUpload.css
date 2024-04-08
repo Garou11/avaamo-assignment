@@ -1,0 +1,36 @@
+.drop-zone {
+  border: 2px dashed #24abc4; /* Light Blue */
+  background-color: #124d79; /* Dark Blue */
+  color: #fff; /* Text color */
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.file-table-container {
+  margin-top: 20px;
+}
+
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.file-table th,
+.file-table td {
+  padding: 8px 16px;
+  border-bottom: 1px solid #fff; /* White border between rows */
+  color: #fff; /* Text color */
+}
+
+.file-table th {
+  background-color: #24abc4; /* Light Blue for table header */
+}
+
+.file-table tbody tr:nth-child(even) {
+  background-color: #124d79; /* Dark Blue for even rows */
+}
+
+.file-table tbody tr:hover {
+  background-color: #177a9b; /* Hover color */
+}

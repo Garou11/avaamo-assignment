@@ -11,3 +11,43 @@ img:hover + .text-hidden {
   transform: translate(-50%, 0%);
   opacity: 1;
 }
+.slide-in {
+  animation: slideIn 0.5s forwards;
+  color: #24abc4;
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+.dont-show {
+  opacity: 0;
+}
+
+.slide-out {
+  animation: slideOut 0.5s forwards;
+  color: #124d79;
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

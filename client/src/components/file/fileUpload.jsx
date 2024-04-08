@@ -4,6 +4,7 @@ import axios from 'axios';
 import FileTable from './existingFiles';
 import { ErrorMessageViewer } from '../errors/errorMessage';
 import { AppHeader } from '../common/header';
+import './fileUpload.css';
 
 const FileUpload = () => {
 
@@ -16,7 +17,7 @@ const FileUpload = () => {
     if(fileError) {
       setTimeout(() => {
         setFileError(null);
-      }, 3000);
+      }, 10000);
     }
   }, [fileError]);
 
@@ -76,7 +77,7 @@ const FileUpload = () => {
       <div className='heading'>
         <AppHeader />
       </div>
-      <div {...getRootProps()} style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center', cursor: 'pointer' }}>
+      <div {...getRootProps()} className='drop-zone' style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center', cursor: 'pointer' }}>
         <input {...getInputProps()} />
         {isDragActive ? (
           <p>Drop the files here ...</p>
