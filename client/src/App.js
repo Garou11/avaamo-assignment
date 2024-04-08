@@ -8,14 +8,6 @@ import { motion } from "framer-motion";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
-
-	useEffect(() => {
-		const img = new Image();
-		img.onload = () => {
-			setLoaded(true);
-		};
-		img.src = "./assets/AnonymousBG.jpeg";
-	}, []);
 	return (
 		<div className="App">
 			<div className={`app ${loaded ? "loaded" : ""}`}>

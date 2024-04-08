@@ -42,10 +42,10 @@
 }
 .file-table-container {
 	margin-top: 20px;
+	overflow-x: auto;
 }
 
 .file-table {
-	width: 100%;
 	border-collapse: collapse;
 }
 

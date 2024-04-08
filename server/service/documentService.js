@@ -42,7 +42,7 @@ async function createDocumentEntry(userId, data) {
 			filename: data.filename,
 			isactive: true
 		});
-		return { id: createDocEntry.docid, name: data.filename };
+		return { id: createDocEntry.docid, name: data.filename};
 
 	} catch (err) {
 		throw new Error("Error while adding entry --> " + err.message);

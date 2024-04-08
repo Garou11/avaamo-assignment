@@ -44,35 +44,36 @@ const FileUpload = () => {
     }
 	}, []);
 
-	useEffect(() => {
-		async function getExistingFiles() {
-			const searchParams = new URLSearchParams(window.location.search);
+	async function getExistingFiles() {
+		const searchParams = new URLSearchParams(window.location.search);
 
-			const userId = searchParams.get("userId");
-			try {
-				const fileList = await axios.get("http://localhost:4000/file/getDocs?userID=" + userId);
-				if (fileList.data && fileList.data.data) {
-					setFilesUploaded(fileList.data.data);
-					setUserId(userId);
-				}
-				return;
-			} catch (err) {
-				setFilesUploaded([
-					{
-						filename: "TEST1",
-						size: "20",
-						uniqueWordsCount: "10",
-					},
-					{
-						filename: "TEST1",
-						size: "20",
-						uniqueWordsCount: "10",
-					},
-				]);
-				setFileError("Unable to fetch existing documents");
-				return;
+		const userId = searchParams.get("userId")|| 1234;
+		try {
+			const fileList = await axios.get("http://localhost:4000/file/getDocs?userID=" + userId);
+			if (fileList.data && fileList.data.data) {
+				setFilesUploaded(fileList.data.data);
+				setUserId(userId);
 			}
+			return;
+		} catch (err) {
+			setFilesUploaded([
+				{
+					filename: "TEST1",
+					size: "20",
+					uniqueWordsCount: "10",
+				},
+				{
+					filename: "TEST1",
+					size: "20",
+					uniqueWordsCount: "10",
+				},
+			]);
+			setFileError("Unable to fetch existing documents");
+			return;
 		}
+	}
+
+	useEffect(() => {
 		getExistingFiles();
 	}, []);
 
@@ -94,13 +95,18 @@ const FileUpload = () => {
 		formData.append("userID", userId);
 		try {
 			const postResponse = await axios.post("http://localhost:4000/file/upload", formData);
-			if (!postResponse.data.isSuccess) {
+			if (!postResponse.data || !postResponse.data.data ||!postResponse.data.isSuccess) {
 				throw new Error("Failed. Error -> " + postResponse.data.error);
 			}
-			const addedFiles = postResponse.data.fileInfo.map((fileAdded) => {
-				return fileAdded.filename;
+			const addedFiles = []
+			postResponse.data.data.fileInfo.forEach((fileAdded) => {
+				if(fileAdded.value && fileAdded.value.filename)addedFiles.push(fileAdded.value.filename);
+				if(fileAdded.status ==='rejected') {
+					setFileError("upload failed for few files. Please try again");
+				}
 			});
 			setFilesUploaded(addedFiles);
+			getExistingFiles();
 			return;
 		} catch (err) {
 			console.log(err);
@@ -138,7 +144,7 @@ const FileUpload = () => {
 			</div>
 			<Strip step={2} text="View File Analytics" delay={10000} />
 			<div className="file-analytics row align-middle content-between">
-				<FileTable fileList={filesUploaded} />
+				<FileTable fileList={filesUploaded} userId={userId} setFileError={setFileError} />
 			</div>
 			<ErrorMessageViewer errorMessage={fileError} />
 		</div>
