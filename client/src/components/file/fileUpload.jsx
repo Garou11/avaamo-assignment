@@ -15,7 +15,7 @@ const FileUpload = () => {
     if(fileError) {
       setTimeout(() => {
         setFileError(null);
-      }, 5000);
+      }, 3000);
     }
   }, [fileError]);
 
@@ -36,7 +36,6 @@ const FileUpload = () => {
         }
         return;
       } catch (err) {
-        debugger
         setFileError('Unable to fetch existing documents');
         return;
       }
@@ -54,7 +53,6 @@ const FileUpload = () => {
       formData.append('pdfFiles', file);
     })
     formData.append('userID', userId);
-    debugger
     try {
       const postResponse = await axios.post('http://localhost:4000/file/upload', formData);
       if(!postResponse.data.isSuccess) {
