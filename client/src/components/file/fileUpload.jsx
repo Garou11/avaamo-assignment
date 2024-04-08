@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { useLocation, BrowserRouter } from 'react-router-dom'
 import axios from 'axios';
 import FileTable from './existingFiles';
+import { ErrorMessageViewer } from '../errors/errorMessage';
 
 const FileUpload = () => {
 
@@ -10,6 +10,14 @@ const FileUpload = () => {
   const [filesUploaded, setFilesUploaded] = useState([]);
   const [fileError, setFileError] = useState(null);
   const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if(fileError) {
+      setTimeout(() => {
+        setFileError(null);
+      }, 5000);
+    }
+  }, [fileError]);
 
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(acceptedFiles);
@@ -26,8 +34,11 @@ const FileUpload = () => {
           setFilesUploaded(fileList.data.data);
           setUserId(userId);
         }
+        return;
       } catch (err) {
+        debugger
         setFileError('Unable to fetch existing documents');
+        return;
       }
     }
     getExistingFiles();
@@ -56,6 +67,7 @@ const FileUpload = () => {
       return;
     } catch(err){
       console.log(err);
+      setFileError('Unable to upload documents');
       return;
     }
   };
@@ -83,6 +95,7 @@ const FileUpload = () => {
         </div>
       )}
       <FileTable fileList={filesUploaded} />
+      <ErrorMessageViewer errorMessage={fileError} />
     </div>
   );
 }

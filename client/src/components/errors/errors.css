@@ -1,0 +1,22 @@
+.error-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffcccc;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.error-message.show {
+  opacity: 1;
+}
+
+.error-message p {
+  margin: 0;
+  color: #ff0000;
+  font-weight: bold;
+}
