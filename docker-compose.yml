@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: aditya
+      POSTGRES_PASSWORD: De@ctivate30
+      POSTGRES_DB: avaamo
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  node_app:
+    build: .
+    working_dir: /app
+    command: npm start
+    ports:
+      - "3000:3000"
+      - "4000:4000"
+    depends_on:
+      - postgres

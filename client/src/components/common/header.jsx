@@ -4,9 +4,6 @@ import "./header.css";
 import TextReplacer from "./text-animation";
 export const AppHeader = () => {
 	const [showText, setShowText] = useState(false);
-	const handleMouseEnter = () => {
-		setShowText(true);
-	};
 
   useEffect(()=> {
     setTimeout(() => {
@@ -14,9 +11,6 @@ export const AppHeader = () => {
     }, 1000);
   },[]);
 
-	const handleMouseLeave = () => {
-		setShowText(false);
-	};
 	return (
 		<div>
 			<div className="logo">
@@ -28,8 +22,6 @@ export const AppHeader = () => {
 						src={logo}
 						alt="logo"
 						width={80}
-						onMouseEnter={handleMouseEnter}
-						onMouseLeave={handleMouseLeave}
 					></img>
 				</span>
 				<span className={`block ${showText ? "slide-out" : "dont-show"}`}>

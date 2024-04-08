@@ -38,6 +38,16 @@ const FileUpload = () => {
         }
         return;
       } catch (err) {
+        setFilesUploaded([{
+          filename:'TEST1',
+          size: '20',
+          uniqueWordsCount: '10',
+        },
+        {
+          filename:'TEST1',
+          size: '20',
+          uniqueWordsCount: '10',
+        }]);
         setFileError('Unable to fetch existing documents');
         return;
       }
