@@ -72,12 +72,21 @@ const FileEditModal = ({ file, onClose, onSave, userID, setFileError }) => {
       },{
         responseType: 'blob',
       });
-      if(!maskedData || !maskedData.data || !maskedData.data.isSuccess) {
+      debugger
+      if(!maskedData || !maskedData.data) {
         throw new Error("unable to find synonym data")
       };
       debugger
+      const blob = new Blob([maskedData.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'downloaded-pdf.pdf');
+      link.click();
+      window.URL.revokeObjectURL(url);
       return;
     } catch(err) {
+      debugger
       setFileError("Unable to fetch synonyms");
       return;
     }

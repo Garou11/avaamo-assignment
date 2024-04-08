@@ -17,7 +17,12 @@ async function countWordsOccurrences(filePath, wordsToCount) {
 		const occurrencesMap = {};
 		const pdfData = fs.readFileSync(filePath);
 
-		const pdfResult = await pdf(filePath);
+		const pdfResult = await pdf(pdfData, {
+			pagerender: {
+				normalizeWhitespace: false,
+				disableCombineTextItems: false,
+			},
+		});
 
 		const textContent = pdfResult.text;
 		wordsToCount.forEach((word) => {
@@ -74,39 +79,33 @@ async function fetchSynonyms(word) {
 	}
 }
 
-async function maskPDF(pdfPath, wordsToMask) {
+async function maskPDF(filePath, wordsToMask) {
 	try {
-		const pdfBuffer = fs.readFileSync(pdfPath);
-		const data = await pdf(pdfBuffer);
-		let text = data.text;
+		const pdfData = fs.readFileSync(filePath);
 
-		wordsToMask.forEach((word) => {
-			const regex = new RegExp(`\\b(${word})\\b`, "gi");
-			text = text.replace(regex, "*****");
+		const pdfResult = await pdf(pdfData, {
+			pagerender: {
+				normalizeWhitespace: false,
+				disableCombineTextItems: false,
+			},
 		});
+		let textContent = pdfResult.text;
+		wordsToMask.forEach((word) => {
+			const regex = new RegExp(`\\b${word}\\b`, "gi");
+      textContent = textContent.replace(regex, "*****");
+		});
+		const pdfDoc = await PDFDocument.create();
 
-		const pdfDoc = await PDFDocument.load(pdfBuffer);
-		const pageCount = pdfDoc.getPageCount();
-		for (let i = 0; i < pageCount; i++) {
-			const page = pdfDoc.getPage(i);
+    let page = pdfDoc.addPage();
+		const sanitizedTextContent = textContent.replace(/[^\x20-\x7E]/g, ''); 
 
-			const text = await page.getTextContent();
-			wordsToMask.forEach((word) => {
-				const regex = new RegExp(`\\b${word}\\b`, "gi");
-				text = text.replace(regex, "*****");
-			});
-
-			page.drawText(text, {
-				x: 50,
-				y: 50, 
-				size: 12,
-				color: rgb(0, 0, 0),
-			});
-		}
-
-		const modifiedPdfBytes = await pdfDoc.save();
-
-		return modifiedPdfBytes;
+    page.drawText(sanitizedTextContent, {
+        x: 50, 
+        y: 500, 
+        size: 12,
+    });
+		const pdfBytes = await pdfDoc.save();
+		return pdfBytes;
 	} catch (err) {
 		throw new Error("Error while masking --> " + err.message);
 	}
