@@ -4,9 +4,10 @@ module.exports = {
   mode: 'jit',
   purge: [
     './src/**/*.{js,jsx,ts,tsx}',
+    './src/components/**/*.{js,jsx}',
     './public/index.html',
   ],
-  darkMode: true,
+  darkMode: false,
   theme: {
     extend: {},
   },

@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import FileTable from './existingFiles';
 import { ErrorMessageViewer } from '../errors/errorMessage';
+import { AppHeader } from '../common/header';
 
 const FileUpload = () => {
 
@@ -71,8 +72,10 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Upload PDFs</h1>
+    <div className="App relative">
+      <div className='heading'>
+        <AppHeader />
+      </div>
       <div {...getRootProps()} style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center', cursor: 'pointer' }}>
         <input {...getInputProps()} />
         {isDragActive ? (

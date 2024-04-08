@@ -1,0 +1,13 @@
+.text-hidden {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+img:hover + .text-hidden {
+  transform: translate(-50%, 0%);
+  opacity: 1;
+}
