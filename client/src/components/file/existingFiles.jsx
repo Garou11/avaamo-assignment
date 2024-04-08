@@ -70,7 +70,6 @@ const FileTable = ({ fileList, userId, setFileError }) => {
 					))}
 				</tbody>
 			</table>
-			{selectedFile !== null && <FileEditModal file={selectedFile} onClose={handleCloseModal} onSave={handleSaveChanges} setFileError={setFileError} userID={userId}/>}
 		</div>
 	);
 };

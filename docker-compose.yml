@@ -14,7 +14,7 @@ services:
   node_app:
     build: .
     working_dir: /app
-    command: npm start
+    command: npm start:prod
     ports:
       - "3000:3000"
       - "4000:4000"
