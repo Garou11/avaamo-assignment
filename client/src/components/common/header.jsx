@@ -15,7 +15,7 @@ export const AppHeader = () => {
 		<div>
 			<div className="logo">
 				<span className={`block ${showText ? "slide-in" : "dont-show"}`}>
-					<TextReplacer text="File An" initialTimeout={4000} finalTimeout={3200}/>
+					<TextReplacer text="File An" initialTimeout={3000} finalTimeout={3200}/>
 				</span>
 				<span>
 					<img
@@ -25,7 +25,7 @@ export const AppHeader = () => {
 					></img>
 				</span>
 				<span className={`block ${showText ? "slide-out" : "dont-show"}`}>
-					<TextReplacer text="nymizer" initialTimeout={5600} finalTimeout={3200} />
+					<TextReplacer text="nymizer" initialTimeout={4600} finalTimeout={3200} />
 				</span>
 			</div>
 		</div>

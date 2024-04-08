@@ -3,7 +3,7 @@ import './errors.css';
 
 export const ErrorMessageViewer = ({errorMessage}) => {
   return (
-    <div className={`error-message ${errorMessage ? 'show' : ''}`} style={{ display: errorMessage ? 'block' : 'none' }}>
+    <div className={`col-md-5 col-xs-12 error-message ${errorMessage ? 'show' : ''}`} style={{ display: errorMessage ? 'block' : 'none' }}>
       <span>Error! {errorMessage}</span>
     </div>
   );
