@@ -1,0 +1,1 @@
+For directly running the containerized app. Just make sure docker daemon is running in the background and run -> docker-compose up -d. It will take care of setting up postgres databse, table and running the code
